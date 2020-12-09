@@ -62,17 +62,23 @@ def secret_santa_match():
         
         # cannot match with only one person
         if len(participants) <= 1:
-            return redirect(url_for("secret_santa_match"))
+            return redirect(url_for("status", status_msg="Not enough participants to match."))
         
         matches = secret_santa.match_people(participants)
-
+        
         if matches != None:
             secret_santa.send_emails(organizers, 
-            matches, 
-            "Welcome organizers! It is your duties to ensure everyone is performing their duties, ironic, I know, but still.", 
+            matches,
+            "Welcome organizers! It is your duties to ensure everyone is performing their duties.", 
             "Hello, welcome to the first secret santa!", 
             "<p>Hello, welcome to the first secret santa!</p>")
+            return redirect(url_for("status", status_msg="The emails were successfully sent!"))
         
-        return redirect(url_for("secret_santa_match"))
+        else:
+            return redirect(url_for("status", status_msg="The matches could not be made. Try lowering the restrictions."))
     
     return render_template("secret_santa.html")
+
+@app.route("/status")
+def status():
+    return render_template("status.html", status_msg=request.args.get("status_msg"))
