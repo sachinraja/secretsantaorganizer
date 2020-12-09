@@ -72,5 +72,3 @@ def secret_santa_match():
         return redirect(url_for("secret_santa_match"))
     
     return render_template("secret_santa.html")
-
-app.run()
