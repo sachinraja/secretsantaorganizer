@@ -24,28 +24,26 @@ def match_people(start_people):
     matches = {}
 
     for person in people:
-        iteration_count = 0
-        # start at random index
-        i = random.randrange(0, len(people))
 
-        for _ in people:
-            # if person being checked is not also the person trying to be matched and 
+        iteration_count = 0
+        # iterate from most restrictions to least restrictions, 
+        # trying to match most restricted people first
+        for potential_match in people:
+            # if potential_match is not also the person trying to be matched and 
             # not already matched and 
             # is not restricted and 
             # does not have the person trying to get matched
-            if (people[i] != person and 
-            people[i] not in matches.values() and 
-            people[i].name not in person.restrictions and 
-            matches.get(people[i]) != person):
-                matches[person] = people[i]
+            if (potential_match != person and 
+            potential_match not in matches.values() and 
+            potential_match.name not in person.restrictions and 
+            matches.get(potential_match) != person):
+                matches[person] = potential_match
                 break
 
             if iteration_count == len(people) - 1:
                 matches[person] = "Unmatched"
                 return None
             
-            i += 1
-            if i == len(people): i = 0
             iteration_count += 1
     
     return matches

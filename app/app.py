@@ -27,7 +27,7 @@ def secret_santa_match():
                 name = email
 
             # continue, can't fulfill function of organizer without email
-            elif email == "":
+            if email == "":
                 continue
 
             organizers.append(Person(name, email))
@@ -59,6 +59,10 @@ def secret_santa_match():
                 restrictions = []
             
             participants.append(Person(name, email, restrictions))
+        
+        # cannot match with only one person
+        if len(participants) <= 1:
+            return redirect(url_for("secret_santa_match"))
         
         matches = secret_santa.match_people(participants)
 
