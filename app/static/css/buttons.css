@@ -1,0 +1,23 @@
+.redButton{
+    margin-top: 25px;
+	box-shadow: inset 0px 39px 0px -24px #e67a73;
+	background-color: #e4685d;
+    border-radius: 20px;
+    border: none;
+	display: inline-block;
+	cursor: pointer;
+	color: #ffffff;
+	font-family: Arial;
+	font-size: 20px;
+	padding: 9px 13px;
+	text-decoration :none;
+}
+
+.redButton:hover{
+	background-color: #eb675e;
+}
+
+.redButton:active{
+	position: relative;
+	top: 5px;
+}

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="keywords" content="Secret Santa, Secret Santa Organizer">
+        <meta name="description" content="Organize Secret Santa with an website that automatically handles everything for you!">
+        <meta name="og:title" content="Secret Santa Organizer">
+        <meta name="og:description" content="Organize Secret Santa with an website that automatically handles everything for you!">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Secret Santa Organizer</title>
+        
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/buttons.css') }}?v=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/send_email.css') }}?v=1.0">
+
+        <script src="{{ url_for('static', filename='js/generateSendEmails.js') }}?v=1.0"></script>
+        <script>
+            const organizers = `{{ organizers_JSON|safe }}`;
+            const matches = `{{ matches_JSON|safe }}`;
+            
+            onload = function(){
+                document.getElementsByName("generateSendEmails")[0].onclick = function(){ 
+                    this.disabled = true;
+                    this.value = "Sending...";
+                    makeRequest(organizers, matches);
+                 }
+            }
+
+        </script>
+    </head>
+
+    <body>
+        <div id="main">
+            <ul>
+                <li><span>Gifter: Recipient</span></li>
+                {% for match in matches %}
+                    <li><span>{{ match[0].name }}: {{ match[1].name }}</span></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <input class="redButton" onclick="window.location.reload();" type="button" value="Generate New Matches">
+        <input class="redButton" name="generateSendEmails" type="button" value="Send Emails">
+    </body>
+</html>
