@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ group_title }}</title>
+
+        <!-- Icons -->
+        <script src="https://kit.fontawesome.com/8fbeccc6cb.js" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/utils.css') }}?v=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/group.css') }}?v=1.0">
+
+        <script src="{{ url_for('static', filename='js/group.js') }}?v=1.0"></script>
+    </head>
+
+    <body>
+        <h1 class="groupHeader">{{ group_title }}</h1>
+        <div id="main">
+            <div class="sidebar-left">
+                <div class="personListContainer" id="organizers">
+                    <h2>Organizers</h2>
+                    <div class="personList">
+                        {% for organizer in organizers %}
+                        <div>{{ organizer.name }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="personListContainer" id="organizers">
+                    <h2>Participants</h2>
+                    <div class="personList">
+                        {% for participant, recipient in matches %}
+                        <div>{{ participant }}: {{ recipient }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <form method="POST">
+                <input type="hidden" name="formName" value="refreshMatches">
+                <input class="redButton" name="refreshMatches" type="submit" value="Refresh Matches">
+            </form>
+
+            <form id="sendEmails" method="POST">
+                <input type="hidden" name="formName" value="sendEmails">
+                <input class="redButton" name="sendEmails" type="button" onclick="submitSendEmails(this);" value="Send Emails">
+                <p class="info">
+                    <i class="fas fa-info-circle"></i>
+                    Sends emails to all the participants. Be careful as they can be sent multiple times.
+                </p>
+            </form>
+        </div>
+    </body>
+</html>
