@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+@import url("https://fonts.googleapis.com/css?family=Work+Sans");
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    margin: 10px;
+}
+
+#main{
+    display: inline-block;
+}
+
+.groupHeader{
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
+    font-size: 1.4em;
+    text-align: center;
+}
+
+.sidebar-left{
+    float: left;
+    max-width: 20vw;
+    word-break: break-all;
+        -ms-word-break: break-all;
+    hyphens: auto;
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+}
+
+.personListContainer h2{
+    margin-top: 10px;
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+}
+
+.personList{
+    border: 2px solid gray;
+    padding: 2px;
+    font-family: Work Sans, Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+}
+
+.personList div{
+    padding: 5px;
+    background-color: lightgray;
+}
+
+.personList div:not(:first-of-type){
+    border-top: 2px solid gray;
+}
+
+#participants{
+    margin-top: 10px;
+}
+
+.buttons{
+    display: block;
+}

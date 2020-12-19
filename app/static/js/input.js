@@ -16,20 +16,13 @@ function addOrganizer(){
     for (let i=0; i < newInputsCount; i++){
         let newInputDiv = document.createElement("div");
 
-        let newInput = document.createElement("input");
-        newInput.name = `organizer${inputsLength}`;
-        newInput.type = "text";
-        newInput.placeholder = `Organizer ${inputsLength+1}`;
+        let newInputID = document.createElement("input");
+        newInputID.name = `organizer${inputsLength}`;
+        newInputID.type = "text";
+        newInputID.placeholder = "ID";
+        newInputID.maxLength = 10;
 
-        let newInputEmail = document.createElement("input");
-        newInputEmail.name = `organizer${inputsLength}`;
-        newInputEmail.type = "text";
-        newInputEmail.placeholder = "Email";
-        newInputEmail.className = "emailInput";
-        newInputEmail.onchange = function(){checkEmailInput(this);};
-
-        newInputDiv.appendChild(newInput);
-        newInputDiv.appendChild(newInputEmail);
+        newInputDiv.appendChild(newInputID);
         inputs.appendChild(newInputDiv);
 
         inputsLength++;
@@ -58,18 +51,21 @@ function addParticipant(){
         newInput.name = `participant${inputsLength}`;
         newInput.type = "text";
         newInput.placeholder = `Participant ${inputsLength+1}`;
-
+        newInput.maxLength = 50;
+        
         let newInputEmail = document.createElement("input");
         newInputEmail.name = `participant${inputsLength}`;
         newInputEmail.type = "text";
         newInputEmail.placeholder = "Email";
         newInputEmail.className = "emailInput";
         newInputEmail.onchange = function(){checkEmailInput(this);};
+        newInputEmail.maxLength = 100;
 
         let newInputRestrictions = document.createElement("textarea");
         newInputRestrictions.name = `participant${inputsLength}`;
         newInputRestrictions.placeholder = "Enter restrictions separated by line.";
         newInputRestrictions.className = "restrictionsInput";
+        newInputRestrictions.cols = 50;
 
         newInputDiv.appendChild(newInput);
         newInputDiv.appendChild(newInputEmail);

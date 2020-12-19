@@ -9,8 +9,9 @@ load_dotenv()
 SENDER_EMAIL = os.getenv("SENDER_EMAIL")
 APP_PASSWORD = os.getenv("APP_PASSWORD")
 
-class Person:
-    def __init__(self, name, email=None, restrictions=[]):
+class Participant:
+    def __init__(self, participant_id, name, email=None, restrictions=[]):
+        self.participant_id = participant_id
         self.name = name
         self.email = email
         self.restrictions = restrictions
@@ -49,59 +50,60 @@ def match_people(start_people):
     return matches
 
 
-def send_emails(organizers, matches, organizer_message, message_text, message_html):
+def send_emails(organizer_emails, matches, organizer_message, message_text, message_html):
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
     server.ehlo()
     server.login(SENDER_EMAIL, APP_PASSWORD)
 
-    matches_text_list = [f"{person[0].name}: {person[1].name}" for person in matches.items()]
+    if len(organizer_emails) > 0:
+        matches_text_list = [f"{gifter[0]}: {recipient_name}" for gifter, recipient_name in matches]
 
-    organizer_text_message = f"{organizer_message}\n\n"
-    organizer_text_message += "".join([f"-{text}\n" for text in matches_text_list])
+        organizer_text_message = f"{organizer_message}\n\n"
+        organizer_text_message += "".join([f"-{text}\n" for text in matches_text_list])
 
-    organizer_html_message = f"""\
-    <html>
-        <body>
-            <p>
-                {organizer_message}
-            </p>
-            
-            <ul>
-                <li>Gifter: Recipient</li>
-                {"".join([f"<li>{text}</li>" for text in matches_text_list])}
-            </ul>
-        </body>
-    </html>
-    """
+        organizer_html_message = f"""\
+        <html>
+            <body>
+                <p>
+                    {organizer_message}
+                </p>
+                
+                <ul>
+                    <li>Gifter: Recipient</li>
+                    {"".join([f"<li>{text}</li>" for text in matches_text_list])}
+                </ul>
+            </body>
+        </html>
+        """
 
-    organizer_message = MIMEMultipart("alternative")
-    organizer_message["Subject"] = "Secret Santa Matches"
-    organizer_message["From"] = f"Secret Santa Organizer <{SENDER_EMAIL}>"
+        organizer_message = MIMEMultipart("alternative")
+        organizer_message["Subject"] = "Secret Santa Matches"
+        organizer_message["From"] = f"Secret Santa Organizer <{SENDER_EMAIL}>"
 
-    organizer_part_1 = MIMEText(organizer_text_message, "plain")
-    organizer_part_2 = MIMEText(organizer_html_message, "html")
+        organizer_part_1 = MIMEText(organizer_text_message, "plain")
+        organizer_part_2 = MIMEText(organizer_html_message, "html")
 
-    organizer_message.attach(organizer_part_1)
-    organizer_message.attach(organizer_part_2)
+        organizer_message.attach(organizer_part_1)
+        organizer_message.attach(organizer_part_2)
 
-    server.sendmail(SENDER_EMAIL, [organizer.email for organizer in organizers], organizer_message.as_string())
+        server.sendmail(SENDER_EMAIL, organizer_emails, organizer_message.as_string())
 
-    for person in matches.items():
-        if person[0].email == None:
+    for gifter, recipient_name in matches:
+        if gifter[1] == None:
             continue
 
         msg = MIMEMultipart("alternative")
         msg["Subject"] = "Secret Santa"
         msg["From"] = f"Secret Santa Organizer <{SENDER_EMAIL}>"
-        msg["To"] = person[0].email
+        msg["To"] = gifter[1]
         
         # Create the body of the message (a plain-text and an HTML version)
-        text = f"Your person is {person[1].name}.\n\n{message_text}"
+        text = f"Your person is {recipient_name}.\n\n{message_text}"
         
         html = f"""\
         <html>
             <body>
-                <p>Your person is <strong>{person[1].name}</strong>.</p>
+                <p>Your person is <strong>{recipient_name}</strong>.</p>
                 {message_html}
             </body>
         </html>
@@ -113,7 +115,7 @@ def send_emails(organizers, matches, organizer_message, message_text, message_ht
         msg.attach(part1)
         msg.attach(part2)
 
-        server.sendmail(SENDER_EMAIL, person[0].email, msg.as_string())
+        server.sendmail(SENDER_EMAIL, gifter[1], msg.as_string())
 
     server.quit()
 
@@ -121,8 +123,8 @@ def send_emails(organizers, matches, organizer_message, message_text, message_ht
 def log(matches):
     log_message = ""
 
-    for person in matches.items():
-        log_message += f"{person[0].name} has to get a gift for {person[1]}\n"
+    for gifter, recipient_name in matches:
+        log_message += f"{gifter[0]} has to get a gift for {recipient_name}\n"
 
     with open("secret_santa_log.txt", "w") as f:
         f.write(log_message)
