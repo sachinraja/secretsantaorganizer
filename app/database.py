@@ -204,6 +204,7 @@ class Database:
 
         cur = self.conn.cursor()
         cur.execute("UPDATE app.user SET user_session_id=NULL WHERE user_email=%s", (user_email,))
+        self.conn.commit()
         cur.close()
     
     def get_group_title(self, group_id):
@@ -230,7 +231,8 @@ class Database:
         """Set sent_emails to True for a group."""
 
         cur = self.conn.cursor()
-        cur.execute("UPDATE app.group SET sent_emails=TRUE WHERE group_id=%s;", (group_id,))
+        cur.execute("UPDATE app.group SET sent_emails=true WHERE group_id=%s;", (group_id,))
+        self.conn.commit()
         cur.close()
         
         return True

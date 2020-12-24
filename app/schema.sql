@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS app.group (
     group_title varchar(50) NOT NULL,
     participant_text_message text NOT NULL,
     participant_html_message text NOT NULL,
-    sent_emails boolean NOT NULL DEFAULT FALSE
+    sent_emails boolean NOT NULL DEFAULT false
 );
 
 CREATE TABLE IF NOT EXISTS app.user (

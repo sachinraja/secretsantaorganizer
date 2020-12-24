@@ -116,6 +116,6 @@ def display_group(group_id):
             secret_santa.send_emails(participant_email_matches, text_message, html_message)
             db.group_sent_emails(group_id)
 
-        return redirect(url_for("group.display_group", sent_emails=True, group_id=group_id))
-
+        return redirect(url_for("group.display_group", group_id=group_id))
+    
     return render_template("group.html", sent_emails=sent_emails, group_title=group_title, organizers=organizers, matches=matches)
