@@ -1,24 +1,31 @@
 .error{
     font-family: Work Sans, Arial, Helvetica, sans-serif;
-    color: #ff0000;
+    color: #FF0000;
     max-width: fit-content;
 }
 
 .info{
     font-family: Work Sans, Arial, Helvetica, sans-serif;
+	max-width: fit-content;
+	color: #000000;
+}
+
+.success{
+	font-family: Work Sans, Arial, Helvetica, sans-serif;
+    color: #006400;
     max-width: fit-content;
 }
 
 /* Buttons */
 .redButton{
     margin-top: 25px;
-	box-shadow: inset 0px 39px 0px -24px #e67a73;
-	background-color: #e4685d;
+	box-shadow: inset 0px 39px 0px -24px #E67A73;
+	background-color: #E4685D;
     border-radius: 20px;
     border: none;
 	display: inline-block;
 	cursor: pointer;
-	color: #ffffff;
+	color: #FFFFFF;
 	font-family: Arial;
 	font-size: 20px;
 	padding: 9px 13px;
@@ -26,7 +33,7 @@
 }
 
 .redButton:hover{
-	background-color: #eb675e;
+	background-color: #EB675E;
 }
 
 .redButton:active{

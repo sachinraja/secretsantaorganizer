@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Login</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/utils.css') }}?v=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/fill_page.css') }}?v=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}?v=1.0">
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    <div id="authForm">
+        <h1>Login</h1>
+        <form method="post">
+            <input required type="text" name="email" placeholder="Email">
+            <input required type="password" name="password" placeholder="Password">
+            <input type="submit" name="login" value="Login">
+        </form>
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

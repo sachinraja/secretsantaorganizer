@@ -1,0 +1,28 @@
+<nav class="navigation">
+    <div class="leftNav noSelect">
+        <a href="{{ url_for('group.create_group') }}">Create Group</a>
+    </div>
+
+    <div class="userOptionsContainer noSelect">
+        {% if user_email %}
+            <a onclick="toggleUserOptions();">
+                {{ user_email }}
+                <i class="fas fa-chevron-down"></i>
+            </a>
+
+            <div style="display: none;" id="userOptions" class="userOptions">
+                <a href="{{ url_for('user.groups') }}">Groups</a>
+                <a onclick="logout();">Logout</a>
+            </div>
+
+        {% else %}
+        <a href="{{ url_for('auth.signup') }}">
+            Sign Up
+        </a>
+        
+        <a href="{{ url_for('auth.login') }}">
+            Login
+        </a>
+        {% endif %}
+    </div>
+</nav>

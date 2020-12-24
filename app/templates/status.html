@@ -1,23 +1,20 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta name="keywords" content="Secret Santa, Secret Santa Organizer">
-        <meta name="description" content="Organize Secret Santa with an website that automatically handles everything for you!">
-        <meta name="og:title" content="Secret Santa Organizer">
-        <meta name="og:description" content="Organize Secret Santa with an website that automatically handles everything for you!">
+{% extends "layout.html" %}
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block head %}
+<title>Secret Santa Organizer</title>
 
-        <title>Secret Santa Organizer</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/fill_page.css') }}?v=1.0">
+{% endblock %}
 
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/status.css') }}?v=1.0">
-    </head>
+{% block content %}
+<div id="main">
+    <h1>{{ status_msg }}</h1>
 
-    <body>
-        <div id="main">
-            <h1>{{ status_msg }}</h1>
+    {% if description %}
+    <p>{{ description|safe }}</p>
 
-            <p><a href="{{ url_for('secret_santa_match') }}">Organize another Secret Santa.</a></p>
-        </div>
-    </body>
-</html>
+    {% else %}
+    <p><a href="{{ url_for('group.create_group') }}">Organize a Secret Santa.</a></p>
+    {% endif %}
+</div>
+{% endblock %}

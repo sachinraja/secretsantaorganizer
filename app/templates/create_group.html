@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Secret Santa Organizer</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/utils.css') }}?v=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create_group.css') }}?v=1.0">
+
+<script src="{{ url_for('static', filename='js/submit.js') }}?v=1.0"></script>
+<script src="{{ url_for('static', filename='js/validate.js') }}?v=1.0"></script>
+<script src="{{ url_for('static', filename='js/create_group.js') }}?v=1.0"></script>
+
+<script>
+    onload = function(){
+        addOrganizer();
+        addParticipant();
+    }
+</script>
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    <h1 class="mainHeader">Create a Group</h1>
+
+    <form id="createGroup" class="inputForm" method="POST">
+        <h3>Group Title</h3>
+        <div class="inputList">
+            <input required type="text" name="title" placeholder="Title" maxlength="50">
+        </div>
+
+        <h3>Organizers</h3>
+        <p class="info">
+            <i class="fas fa-info-circle"></i>
+            Organizers must have an account connected to their emails (200 character limit). If not, they will not be added to the group.
+        </p>
+
+        <div id="organizers" class="inputList"></div>
+        <i onclick="addOrganizer();" class="addButton fas fa-plus fa-2x"></i>
+
+        <h3>Participants</h3>
+        <p class="info">
+            <i class="fas fa-info-circle"></i>
+            Participants must have names (50 character limit) and have an email field (200 character limit). If the email field is left blank, the emails will not be sent to the participant when the Send Emails button is clicked and it is assumed that the organizers are contacting the participants on their own.
+        </p>
+
+
+        <div id="participants" class="inputList"></div>
+        <i onclick="addParticipant();" class="addButton fas fa-plus fa-2x"></i>
+        
+        <h3>Participant Text Message</h3>
+        <p class="info">
+            <i class="fas fa-info-circle"></i>
+            This message will accompany the email sent to the participants with the name of their recipient.
+        </p>
+
+        <textarea class="participantMessage" name="participantTextMessage" maxlength="2000">Hello, welcome to secret santa!</textarea>
+
+        <h3>Participant HTML Message</h3>
+        <p class="info">
+            <i class="fas fa-info-circle"></i>
+            This message will also accompany the email sent to the participants with the name of their recipient, but will only be displayed if the viewer has email HTML capability.
+        </p>
+
+        <textarea class="participantMessage" name="participantHTMLMessage" maxlength="2000" placeholder="Leave this blank if you would like it to be the same as the text message."></textarea>
+
+        {% if user_email %}
+        <input class="redButton" id="generate" name="generate" type="button" onclick="createGroupSubmitGenerate(this);" value="Generate">
+        <p class="info">
+            <i class="fas fa-info-circle"></i>
+            Saves your group and takes you to the dashboard where you can send the emails.
+        </p>
+        {% endif %}
+
+        <input class="redButton" id="sendEmails" name="sendEmails" type="button" onclick="createGroupSubmitSendEmails(this);" value="Send Emails">
+        <p class="info">
+            <i class="fas fa-info-circle"></i>
+            Sends the emails to the participants for this group. If you want to save your group and access the dashboard, create an account.
+        </p>
+    </form>
+</div>
+{% endblock %}

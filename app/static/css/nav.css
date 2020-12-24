@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:700");
+
+.navigation{
+    background-color: #E74C3C;
+}
+
+.navigation a{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.leftNav{
+    display: inline-block;
+}
+
+.leftNav > a{
+    padding: 5px;
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.userOptionsContainer > a{
+    padding: 5px;
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.userOptionsContainer{
+    float: right;
+    position: relative;
+}
+
+.userOptions{
+    background-color: #EC7063;
+    position: absolute;
+    width: 100%;
+}
+
+.userOptions > a{
+    display: block;
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
+    font-size: 1.4em;
+    font-weight: 700;
+    color: #ffffff;
+    text-align: center;
+    padding: 5px;
+}
+
+.noSelect{
+    user-select: none;
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+}

@@ -50,44 +50,11 @@ def match_people(start_people):
     return matches
 
 
-def send_emails(organizer_emails, matches, organizer_message, message_text, message_html):
+def send_emails(matches, message_text, message_html):
     server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
     server.ehlo()
     server.login(SENDER_EMAIL, APP_PASSWORD)
-
-    if len(organizer_emails) > 0:
-        matches_text_list = [f"{gifter[0]}: {recipient_name}" for gifter, recipient_name in matches]
-
-        organizer_text_message = f"{organizer_message}\n\n"
-        organizer_text_message += "".join([f"-{text}\n" for text in matches_text_list])
-
-        organizer_html_message = f"""\
-        <html>
-            <body>
-                <p>
-                    {organizer_message}
-                </p>
-                
-                <ul>
-                    <li>Gifter: Recipient</li>
-                    {"".join([f"<li>{text}</li>" for text in matches_text_list])}
-                </ul>
-            </body>
-        </html>
-        """
-
-        organizer_message = MIMEMultipart("alternative")
-        organizer_message["Subject"] = "Secret Santa Matches"
-        organizer_message["From"] = f"Secret Santa Organizer <{SENDER_EMAIL}>"
-
-        organizer_part_1 = MIMEText(organizer_text_message, "plain")
-        organizer_part_2 = MIMEText(organizer_html_message, "html")
-
-        organizer_message.attach(organizer_part_1)
-        organizer_message.attach(organizer_part_2)
-
-        server.sendmail(SENDER_EMAIL, organizer_emails, organizer_message.as_string())
-
+    
     for gifter, recipient_name in matches:
         if gifter[1] == None:
             continue
@@ -128,3 +95,44 @@ def log(matches):
 
     with open("secret_santa_log.txt", "w") as f:
         f.write(log_message)
+
+def get_organizer_emails(form):
+    """Get up to 15 organizer emails from an input form."""
+
+    return form.getlist("organizer")[:15]
+
+def get_participants(form):
+    """Get up to 100 participants from an input form."""
+
+    participants = []
+    for i in range(100):
+        participant = form.getlist(f"participant{i}")
+
+        if participant == []:
+            break
+
+        name, email, restrictions = participant
+        
+        if name == "" and email == "":
+            continue
+        
+        # if the user inserted a name or email that was too long
+        if len(name) > 50 or len(email) > 200:
+            return []
+        
+        if name == "":
+            name = email
+        
+        # set email to none if it is blank, organizers will have to contact
+        elif email == "":
+            email = None
+        
+        restrictions = restrictions.splitlines()
+
+        if restrictions == [""]:
+            restrictions = []
+        
+        participants.append(Participant(i, name, email, restrictions))
+    
+    return participants
+
