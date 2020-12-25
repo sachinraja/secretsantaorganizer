@@ -46,8 +46,7 @@ def match_people(start_people):
                     if (person != recipient and
                     recipient.name not in person.restrictions and
                     matches.get(recipient) != person and
-                    person != gifter and
-                    person not in gifter.restrictions):
+                    person.name not in gifter.restrictions):
                         matches[gifter] = person
                         matches[person] = recipient
                         break
