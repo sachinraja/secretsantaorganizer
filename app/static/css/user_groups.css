@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:700");
+@import url("https://fonts.googleapis.com/css?family=Work+Sans");
+
+#main{
+    margin: 25px;
+}
+
+.groups{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
+}
+
+.groups > div{
+    margin-top: 10px;
+    width: 90%;
+    background-color: #BDBDBD;
+    border-radius: 25px;
+    padding: 5px;
+    text-align: center;
+}
+
+.groups > div > h2{
+    font-family: Montserrat, Arial, Helvetica, sans-serif;
+    font-size: 1.6em;
+    font-weight: 700;
+}
+
+.groups > div > a{
+    font-family: Work Sans, Arial, Helvetica, sans-serif;
+    font-size: 1.2em;
+}

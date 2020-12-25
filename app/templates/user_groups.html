@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block head %}
+<title>My Groups</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user_groups.css') }}?v=1.0">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/utils.css') }}?v=1.0">
+
+<script src="{{ url_for('static', filename='js/validate.js') }}"></script>
+<script src="{{ url_for('static', filename='js/user_groups.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="main">
+    {% if groups %}
+        <div id="groups" class="groups">
+
+        {% for group_id, group_title in groups %}
+            <div>
+                <h2>{{ group_title }}</h2>
+                <a class="redButton" href="{{ url_for('group.display_group', group_id=group_id) }}">Manage</a>
+            </div>
+        {% endfor %}
+
+        </div>
+
+        <input class="redButton" type="button" onclick="loadMoreGroups(this);" value="Load More">
+    {% endif %}
+</div>
+{% endblock %}
