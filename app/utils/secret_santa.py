@@ -35,12 +35,15 @@ def match_people(start_people):
             potential_match.name not in person.restrictions and
             matches.get(potential_match) != person):
                 matches[person] = potential_match
-
                 potential_matches.pop(i)
                 break
             
             # person could not be matched
             if i == len(potential_matches) - 1:
+                # already gone through everything and matches is empty
+                if not matches:
+                    return None
+
                 # attempt to replace from an earlier match
                 for i, (gifter, recipient) in enumerate(matches.items()):
                     if (person != recipient and
@@ -64,9 +67,6 @@ def send_emails(matches, message_text, message_html):
     server.login(SENDER_EMAIL, APP_PASSWORD)
     
     for gifter, recipient_name in matches:
-        if gifter[1] == None:
-            continue
-
         msg = MIMEMultipart("alternative")
         msg["Subject"] = "Secret Santa"
         msg["From"] = f"Secret Santa Organizer <{SENDER_EMAIL}>"

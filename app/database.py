@@ -61,10 +61,6 @@ class Database:
 
         cur = self.conn.cursor()
         for participant in participants:
-
-            if participant.email == None:
-                participant.email = "NULL"
-
             cur.execute("INSERT INTO app.participant (group_id, participant_id, participant_name, participant_email, recipient_id) VALUES (%s, %s, %s, %s, %s);", (group_id, participant.participant_id, participant.name, participant.email, matches[participant].participant_id))
 
             for restriction in participant.restrictions:
@@ -278,9 +274,9 @@ class Database:
         """Get all emails for participants in a group."""
 
         cur = self.conn.cursor()
-        cur.execute("SELECT participant_name, participant_email, recipient_id FROM app.participant WHERE group_id=%s;", (group_id,))
+        cur.execute("SELECT participant_name, participant_email, recipient_id FROM app.participant WHERE group_id=%s AND participant_email IS NOT NULL;", (group_id,))
         participants = cur.fetchall()
-
+        
         participants_output = []
         for participant_name, participant_email, recipient_id in participants:
             cur.execute("SELECT participant_name FROM app.participant WHERE group_id=%s AND participant_id=%s LIMIT 1;", (group_id, recipient_id))
