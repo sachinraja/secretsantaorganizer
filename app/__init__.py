@@ -8,5 +8,7 @@ import psycopg2
 from app.database import Database
 conn = psycopg2.connect(os.getenv("DATABASE_URL"))
 db = Database(conn, "app/schema.sql")
+db.drop()
+db.load()
 
 from app.app import app

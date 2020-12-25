@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/fill_page.css') }}?v=1.0">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}?v=1.0">
 
-<script src="{{ url_for('static', filename='js/validate.js') }}?v=1.0"></script>
+<script src="{{ url_for('static', filename='js/validate.js') }}?v=1.0.1"></script>
 <script src="{{ url_for('static', filename='js/create_group.js') }}?v=1.0"></script>
 {% endblock %}
 
@@ -18,7 +18,7 @@
         <form method="post">
             <input required type="text" name="email" placeholder="Email" maxlength="200">
             <input required id="password" type="password" name="password" placeholder="Password" minlength="8" maxlength="72" oninput="validatePass();">
-            <input required id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm Password" minlength="8" maxlength="72" oninput="checkPass();">
+            <input required id="confirmPassword" type="password" name="confirmPassword" placeholder="Confirm Password" minlength="8" maxlength="72" oninput="validatePass();">
             <p class="info">
                 <i class="fas fa-info-circle"></i>
                 Passwords must be at least 8 characters.

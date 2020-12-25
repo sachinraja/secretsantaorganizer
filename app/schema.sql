@@ -33,5 +33,5 @@ CREATE TABLE IF NOT EXISTS app.participant (
 CREATE TABLE IF NOT EXISTS app.participant_restriction (
     group_id int REFERENCES app.group,
     participant_id int NOT NULL,
-    restriction varchar(50)
+    restriction varchar(50) NOT NULL
 );

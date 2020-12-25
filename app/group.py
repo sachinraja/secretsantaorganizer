@@ -75,13 +75,13 @@ def create_group():
 @group.route("/group/<group_id>", methods=["GET", "POST"])
 def display_group(group_id):
     if not group_id.isnumeric():
-        return display_status("This is not a valid group ID.")
+        abort(404)
 
     group_id = int(group_id)
     group_title = db.get_group_title(group_id)
 
     if not group_title:
-        return display_status("This is not a valid group ID.")
+        abort(404)
     
     email = session.get("email")
     session_id = session.get("_id")

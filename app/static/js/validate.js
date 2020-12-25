@@ -24,8 +24,9 @@ function removeError(element){
 
 function validatePass(){
     let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
     
-    if (password == document.getElementById("confirmPassword").value && password.length >= 8 && password.length <= 100){
+    if (password == confirmPassword){
         document.getElementById("submit").disabled = false;
     }
 
