@@ -31,7 +31,7 @@ def create_group():
             return display_status("Participant HTML message is too long (2000 character limit).")
 
         participants = secret_santa.get_participants(request.form)
-
+        
         # cannot match with only two people
         if len(participants) <= 2:
             return display_status("Not enough participants to match.")
@@ -112,7 +112,7 @@ def display_group(group_id):
             text_message, html_message = db.get_group_messages(group_id)
             
             participant_email_matches = db.get_participant_email_matches(group_id)
-            
+
             secret_santa.send_emails(participant_email_matches, text_message, html_message)
             db.group_sent_emails(group_id)
 
