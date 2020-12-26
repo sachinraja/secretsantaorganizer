@@ -24,9 +24,16 @@
     font-family: Montserrat, Arial, Helvetica, sans-serif;
     font-size: 1.6em;
     font-weight: 700;
+    word-wrap: break-word;
 }
 
 .groups > div > a{
     font-family: Work Sans, Arial, Helvetica, sans-serif;
     font-size: 1.2em;
+}
+
+@media only screen and (max-width: 600px){
+    .groups{
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
