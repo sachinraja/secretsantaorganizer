@@ -26,6 +26,7 @@ h1, h2, h3{
 
 .emailInput, .restrictionsInput{
     margin-left: 25px;
+    width: 75%;
 }
 
 #createGroup textarea{

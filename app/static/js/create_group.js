@@ -20,7 +20,7 @@ function addOrganizer(){
         newInputEmail.name = "organizer";
         newInputEmail.type = "text";
         newInputEmail.placeholder = "Email";
-        newInputEmail.onchange = function(){checkEmailInput(this, document.getElementById("generate"));};
+        newInputEmail.onchange = function(){checkEmailInput(this);};
         newInputEmail.maxLength = 200;
         
         newInputDiv.appendChild(newInputEmail);
@@ -59,7 +59,7 @@ function addParticipant(){
         newInputEmail.type = "text";
         newInputEmail.placeholder = "Email";
         newInputEmail.className = "emailInput";
-        newInputEmail.onchange = function(){checkEmailInput(this, document.getElementById("generate"));};
+        newInputEmail.onchange = function(){checkEmailInput(this);};
         newInputEmail.maxLength = 200;
 
         let newInputRestrictions = document.createElement("textarea");

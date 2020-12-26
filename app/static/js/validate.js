@@ -35,22 +35,19 @@ function validatePass(){
     }
 }
 
-function checkEmailInput(emailInput, disableButton){
+function checkEmailInput(emailInput){
     if (!emailInput.value){
         return;
     }
 
     emailStatus = validateEmail(emailInput.value);
-
+    
     if (!emailStatus){
         error(emailInput.parentElement, "This is not a valid email.");
-        disableButton.disabled = true;
-        console.log(disableButton.disabled)
     }
 
     else{
         removeError(emailInput.parentElement);
-        disableButton.disabled = false;
     }
 }
 
