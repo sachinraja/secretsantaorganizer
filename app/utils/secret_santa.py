@@ -141,11 +141,8 @@ def get_participants(form):
         elif email == "":
             email = None
         
-        restrictions = form.getlist(f"participant{i}restriction")
-        
-        if restrictions == [""]:
-            restrictions = []
-        
+        restrictions = [restriction for restriction in form.getlist(f"participant{i}restriction") if restriction != ""]
+
         participants.append(Participant(i, name, email, restrictions))
     
     return participants

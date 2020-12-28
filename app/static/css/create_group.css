@@ -9,6 +9,9 @@ h1, h2, h3, h4{
     font-family: Montserrat, Arial, Helvetica, sans-serif;
 }
 
+.info{
+    max-width: 25vw;
+}
 .inputList{
     box-sizing: border-box;
 }
@@ -28,14 +31,25 @@ h1, h2, h3, h4{
     margin-top: 5px;
 }
 
+.secondaryValuesContainer{
+    margin-left: 25px;
+}
+
+.restrictionsContainer{
+    display: inline-block;
+    width: 100%;
+}
+
 .restrictionsInput{
-    border-radius: 25px;
+    display: block;
+    margin-top: 5px;
+    border: 2px solid #4b92fb;
+    border-radius: 12.5px;
     font-size: 1.2em;
 }
 
-.emailInput, .restrictionsInput, .restrictionsHeader{
-    margin-left: 25px;
-    width: 80%;
+.restrictionsInput, .emailInput{
+    width: 100%;
 }
 
 #createGroup textarea{

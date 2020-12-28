@@ -57,6 +57,9 @@ function addParticipant(){
         newInput.maxLength = 50;
         newInputDiv.appendChild(newInput);
         
+        let secondaryValuesDiv = document.createElement("div");
+        secondaryValuesDiv.className = "secondaryValuesContainer";
+
         let newInputEmail = document.createElement("input");
         newInputEmail.name = `participant${inputsLength}`;
         newInputEmail.type = "text";
@@ -64,15 +67,17 @@ function addParticipant(){
         newInputEmail.className = "emailInput";
         newInputEmail.onchange = function(){checkEmailInput(this);};
         newInputEmail.maxLength = 200;
-        newInputDiv.appendChild(newInputEmail);
+        secondaryValuesDiv.appendChild(newInputEmail);
 
         //restrictions
+        let restrictionsDiv = document.createElement("div");
+        restrictionsDiv.className = "restrictionsContainer";
+
         let restrictionsHeader = document.createElement("h4");
         restrictionsHeader.textContent = "Restrictions";
         restrictionsHeader.className = "restrictionsHeader";
-        newInputDiv.appendChild(restrictionsHeader);
+        restrictionsDiv.appendChild(restrictionsHeader);
 
-        let restrictionsDiv = document.createElement("div");
         let newInputRestriction = document.createElement("select");
         newInputRestriction.name = `participant${inputsLength}restriction`;
         newInputRestriction.className = "restrictionsInput";
@@ -80,8 +85,9 @@ function addParticipant(){
         restrictionsDiv.appendChild(newInputRestriction);
 
         restrictionsDiv.innerHTML += `<i onclick="addRestriction(this.parentElement);" class="addButton fas fa-plus fa-lg"></i>`;
-        newInputDiv.appendChild(restrictionsDiv);
 
+        secondaryValuesDiv.appendChild(restrictionsDiv);
+        newInputDiv.append(secondaryValuesDiv);
         inputs.appendChild(newInputDiv);
 
         inputsLength++;
