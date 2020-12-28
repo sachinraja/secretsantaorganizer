@@ -95,8 +95,7 @@ def display_group(group_id):
 
     if not db.user_in_group(group_id, email):
         abort(403)
-                
-    group_title = group_title[0]
+
     organizers = db.get_user_emails(group_id)
     participants = db.get_participants(group_id)
     matches = db.get_participant_matches(group_id, participants)

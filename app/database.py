@@ -144,23 +144,19 @@ class Database:
         return user_session_id
 
     def get_user_group_titles(self, user_email, offset=0):
-        """Get 12 titles of groups that a user owns starting at the offset."""
+        """Get 12 titles of groups that a user organizes starting at the offset."""
 
         cur = self.conn.cursor()
-        cur.execute("SELECT group_id FROM app.user_group WHERE user_email=%s;", (user_email,))
-        cur.execute("""SELECT group_id FROM app.user_group
+        cur.execute("""WITH group_ids AS
+        (SELECT group_id FROM app.user_group
         WHERE user_email=%s
         ORDER BY group_id
         OFFSET %s ROWS
-        FETCH FIRST 12 ROW ONLY;""", (user_email, offset))
-
-        group_ids = [group_attrs[0] for group_attrs in cur.fetchall()]
-        
-        groups = []
-        for group_id in group_ids:
-            cur.execute("SELECT group_title FROM app.group WHERE group_id=%s LIMIT 1;", (group_id,))
-            groups.append((group_id, cur.fetchone()[0]))
-        
+        FETCH FIRST 12 ROW ONLY)
+        SELECT app.group.group_id, group_title
+        FROM app.group INNER JOIN group_ids 
+        ON app.group.group_id=group_ids.group_id;""", (user_email, offset))
+        groups = cur.fetchall()
         cur.close()
 
         return groups
@@ -209,6 +205,9 @@ class Database:
         cur = self.conn.cursor()
         cur.execute("SELECT group_title FROM app.group WHERE group_id=%s LIMIT 1;", (group_id,))
         group_title = cur.fetchone()
+        if group_title:
+            group_title = group_title[0]
+        
         cur.close()
 
         return group_title
@@ -295,12 +294,9 @@ class Database:
 
         cur = self.conn.cursor()
         for participant in participants:
-            cur.execute("SELECT recipient_id FROM app.participant WHERE group_id=%s AND participant_id=%s LIMIT 1;", (group_id, participant.participant_id))
-            recipient_id = cur.fetchone()[0]
-            
-            cur.execute("SELECT participant_name FROM app.participant WHERE group_id=%s AND participant_id=%s;", (group_id, recipient_id))
-
+            cur.execute("SELECT participant_name FROM app.participant WHERE group_id={group_id} AND participant_id=(SELECT recipient_id FROM app.participant WHERE group_id={group_id} AND participant_id={participant_id} LIMIT 1) LIMIT 1;".format(group_id=group_id, participant_id=participant.participant_id))
             recipient_name = cur.fetchone()[0]
+            
             participant_output.append((participant.name, recipient_name))
         
         cur.close()
