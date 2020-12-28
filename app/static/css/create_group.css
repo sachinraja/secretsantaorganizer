@@ -5,12 +5,16 @@
     margin: 10px 25px 50px 25px;
 }
 
-h1, h2, h3{
+h1, h2, h3, h4{
     font-family: Montserrat, Arial, Helvetica, sans-serif;
 }
 
 .inputList{
     box-sizing: border-box;
+}
+
+#participants > div{
+    margin-top: 25px;
 }
 
 .inputList input{
@@ -24,9 +28,14 @@ h1, h2, h3{
     margin-top: 5px;
 }
 
-.emailInput, .restrictionsInput{
+.restrictionsInput{
+    border-radius: 25px;
+    font-size: 1.2em;
+}
+
+.emailInput, .restrictionsInput, .restrictionsHeader{
     margin-left: 25px;
-    width: 75%;
+    width: 80%;
 }
 
 #createGroup textarea{

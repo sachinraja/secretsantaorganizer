@@ -125,7 +125,7 @@ def get_participants(form):
             
             continue
 
-        name, email, restrictions = participant
+        name, email = participant
         
         if name == "" and email == "":
             continue
@@ -141,8 +141,8 @@ def get_participants(form):
         elif email == "":
             email = None
         
-        restrictions = restrictions.splitlines()
-
+        restrictions = form.getlist(f"participant{i}restriction")
+        
         if restrictions == [""]:
             restrictions = []
         
